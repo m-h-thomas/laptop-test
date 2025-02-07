@@ -1,7 +1,10 @@
-h1 {
-    color: blue;
-}
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
 
 body {
-    background-color: gray;
+    font-family: "Permanent Marker", serif;
+    background-color: white;
+}
+
+h1 {
+    color: blue;
 }
