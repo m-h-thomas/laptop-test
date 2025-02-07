@@ -8,8 +8,8 @@ let completedTasks = [];
 
 /* Dynamically displays items from allItems array */
 const displayTasks = () => {
-    let currentTasksList = document.querySelector('#new-task-list');
-    let allCurrentTasks = currentTasks.map((elm) => `<div class="newTasks><li><button class="addTask">${elm}</button></li></div`)
+    let currentTasksList = document.querySelector('.currentTaskList');
+    let allCurrentTasks = currentTasks.map((elm) => `<li class="currentTaskList">${elm}</li>`)
     .reduce((acc, elm) => acc += elm, '');
     currentTasksList.innerHTML = allCurrentTasks;
   };
