@@ -9,13 +9,28 @@ let completedTasks = [];
 /* Dynamically displays items from allItems array */
 const displayTasks = () => {
     let currentTasksList = document.querySelector('.currentTaskList');
-    let allCurrentTasks = currentTasks.map((elm) => `<li class="currentTaskList">${elm}<input class="checkbox" type="checkbox"></li>`)
+    let completedTasksList = document.querySelector('.completedTaskList');
+    let allCurrentTasks = currentTasks.map((elm, index) => `<li class="currentTaskList" data-index="${index}">${elm}<input class="checkbox" type="checkbox"></li>`)
     .reduce((acc, elm) => acc += elm, '');
     currentTasksList.innerHTML = allCurrentTasks;
 
-    // let completedTasksList = document.querySelector('.currentTaskList');
-    // let allCompletedTasks = completedTasks.map((elm) => `<li class="completedTaskList">${elm}</li>`).reduce((acc, elm) => acc += elm, '')
-    // completedTasksList.innerHTML = allCompletedTasks;
+
+
+    let checkboxes = document.querySelectorAll('.checkbox');
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', (event) => {
+            const taskItem = event.target.closest('li');  // Get the <li> containing the checkbox
+            const index = taskItem.getAttribute('data-index');  // Get the index of the task
+            const taskText = currentTasks[index]; // Get the task text based on the index
+
+            if (event.target.checked) {
+                // If the checkbox is checked, move the task to the completed list
+                completedTasksList.innerHTML = `<li class="completedTaskItem">${taskText}</li>`;
+                taskItem.remove();  // Remove the task from the current list
+                currentTasks.splice(index, 1);  // Remove the task from the currentTasks array
+            }
+        });
+    });
   };
 
 /* Grabs the content of user-input-field and passes it button function */
@@ -36,16 +51,16 @@ const getInputValue = () => {
 }
 
 
-/* Grabs content from current tasks and passes it completed tasks */
-const completeTask = () => {
-    // let complete = document.querySelector('.currentTaskList').checked = true;
-    let complete = document.querySelector('.checkbox');
-    complete.addEventListener('click', () => {
-        if(complete.checked == true){
-            completedTasks.push(complete);
-        }
-        displayTasks();
-    })
-}
+// /* Grabs content from current tasks and passes it completed tasks */
+// const completeTask = () => {
+//     // let complete = document.querySelector('.currentTaskList').checked = true;
+//     let complete = document.querySelector('.checkbox');
+//     complete.addEventListener('click', () => {
+//         if(complete.checked == true){
+//             completedTasks.push(complete);
+//         }
+//         displayTasks();
+//     })
+// }
 
 getInputValue();
